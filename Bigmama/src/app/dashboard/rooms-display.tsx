@@ -10,6 +10,7 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
     const [loading, setLoading] = useState(true)
     const [rooms, setRooms] = useState<string[]>([])
     const [title, setTitle] = useState<string>("")
+    const [joinroomId, setJoinroomId] = useState<string>("")
 
     const user = session?.user
 
@@ -43,7 +44,7 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
         getProfile()
     }, [user, getProfile])
 
-    async function updateProfile({
+    async function createRoom({
                                      rooms,
                                      title,
                                  }: {
@@ -64,6 +65,34 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
             console.log("rooms",rooms)
 
             const newrooms = [...rooms, roomId]
+
+            console.log("new rooms", newrooms)
+
+
+            const { error } = await supabase.from('profiles')
+                .update({ rooms: newrooms })
+                .eq('id', user?.id);
+
+            if (error) throw error
+            alert('Profile updated!')
+        } catch (error) {
+            alert('Error updating the data!')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function joinRoom({
+                                  rooms,
+                                  joinroomId,
+                              }: {
+        rooms: string[],
+        joinroomId: string
+    }) {
+        try {
+            setLoading(true)
+
+            const newrooms = [...rooms, joinroomId]
 
             console.log("new rooms", newrooms)
 
@@ -111,10 +140,29 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                 </div>
                 <button
                     className="button primary block"
-                    onClick={() => updateProfile({ rooms, title })}
+                    onClick={() => createRoom({ rooms, title })}
                     disabled={loading}
                 >
                     {loading ? 'Loading ...' : 'Create Room'}
+                </button>
+            </div>
+
+            <div>
+                <div>
+                    <label htmlFor="roomid">Room Id</label>
+                    <input
+                        id="roomId"
+                        type="text"
+                        value={joinroomId || ''}
+                        onChange={(e) => setJoinroomId(e.target.value)}
+                    />
+                </div>
+                <button
+                    className="button primary block"
+                    onClick={() => joinRoom({ rooms, joinroomId })}
+                    disabled={loading}
+                >
+                    {loading ? 'Loading ...' : 'Join Room'}
                 </button>
             </div>
         </div>
