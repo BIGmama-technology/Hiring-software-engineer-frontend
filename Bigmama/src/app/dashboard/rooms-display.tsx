@@ -128,7 +128,8 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
         <div className="form-widget px-8 py-2">
             <div className={"w-full flex justify-between"}>
                 <div className={"text-4xl font-bold"}>My documents</div>
-                <div className={"px-2 py-1 bg-white text-black rounded-lg text-xl cursor-pointer"} onClick={() => setShowmodal((prevState) => !prevState)}>Add new Document</div>
+                <div className={"hidden md:block px-2 py-1 bg-white text-black rounded-lg text-xl cursor-pointer"} onClick={() => setShowmodal((prevState) => !prevState)}>Add new Document</div>
+                <div className={"md:hidden px-4 flex justify-center items-center bg-white text-black rounded-full cursor-pointer"} onClick={() => setShowmodal((prevState) => !prevState)}>Add</div>
             </div>
             <div className={"flex flex-wrap gap-4"}>
                 {rooms.length > 0 ? roomsElements : <div>You don't have any rooms</div>}
