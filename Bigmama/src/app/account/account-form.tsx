@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import "@/app/global.css"
 import Avatar from "@/app/account/Avatar";
-import { ChromePicker } from 'react-color';
 import {HexColorPicker} from "react-colorful";
 
 export default function AccountForm({ session }: { session: Session | null }) {
