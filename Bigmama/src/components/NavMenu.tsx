@@ -24,7 +24,7 @@ export default function NavMenu(){
 function NavBar(){
     return (
         <nav>
-            <ul className={"flex gap-x-8 items-center w-full justify-between"}>
+            <ul className={"flex py-2 gap-x-8 items-center w-full justify-center"}>
                 <li>
                     <Link href={"/account"}>
                         <div className="button block">Profile</div>
@@ -34,15 +34,6 @@ function NavBar(){
                     <Link href={"/dashboard"}>
                         <div className="button block">Dashboard</div>
                     </Link>
-                </li>
-                <li>
-                    <div>
-                        <form method="post">
-                            <button className="button block" type="submit">
-                                Sign out
-                            </button>
-                        </form>
-                    </div>
                 </li>
             </ul>
         </nav>
