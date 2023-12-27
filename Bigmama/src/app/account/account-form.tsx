@@ -4,6 +4,7 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import "@/app/global.css"
 import Avatar from "@/app/account/Avatar";
 import {HexColorPicker} from "react-colorful";
+import { useRouter } from "next/navigation";
 
 export default function AccountForm({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -14,6 +15,12 @@ export default function AccountForm({ session }: { session: Session | null }) {
     const [avatar_url, setAvatarUrl] = useState<string | null>(null)
     const [profileColor, setProfileColor] = useState<string>('#000000'); // State for profile_color
     const user = session?.user
+
+    const router = useRouter();
+
+    if(!user){
+        router.push("/");
+    }
 
     const getProfile = useCallback(async () => {
         try {

@@ -46,9 +46,9 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
     }, [user, getProfile])
 
     async function createRoom({
-                                     rooms,
-                                     title,
-                                 }: {
+                                  rooms,
+                                  title,
+                              }: {
         rooms: string[],
         title: string
     }) {
@@ -61,13 +61,8 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 
             const roomId = treatedTitle + "/" + customId;
 
-            console.log("roomid",roomId)
-
-            console.log("rooms",rooms)
-
             const newrooms = [...rooms, roomId]
 
-            console.log("new rooms", newrooms)
 
 
             const { error } = await supabase.from('profiles')
@@ -84,9 +79,9 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
     }
 
     async function joinRoom({
-                                  rooms,
-                                  joinroomId,
-                              }: {
+                                rooms,
+                                joinroomId,
+                            }: {
         rooms: string[],
         joinroomId: string
     }) {
@@ -95,7 +90,6 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 
             const newrooms = [...rooms, joinroomId]
 
-            console.log("new rooms", newrooms)
 
 
             const { error } = await supabase.from('profiles')
