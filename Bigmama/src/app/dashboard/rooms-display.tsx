@@ -15,6 +15,12 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 
     const user = session?.user
 
+    const router = useRouter();
+
+    if(!user){
+        router.push("/");
+    }
+
     const getProfile = useCallback(async () => {
         try {
             setLoading(true)
@@ -173,4 +179,5 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 }
 
 import React from "react";
+import {useRouter} from "next/navigation";
 
