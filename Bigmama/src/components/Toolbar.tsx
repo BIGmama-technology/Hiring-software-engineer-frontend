@@ -8,6 +8,7 @@ import { ToolbarInline } from "./ToolbarInline";
 import { ToolbarMedia } from "./ToolbarMedia";
 import styles from "./Toolbar.module.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import NavMenu from "@/components/NavMenu";
 
 type Props = {
   editor: Editor;
@@ -40,6 +41,9 @@ export function Toolbar({ editor }: Props) {
       <div className={styles.toolbarSection}>
         <ToolbarMedia editor={editor} />
       </div>
+        <div>
+            <NavMenu />
+        </div>
     </div>
   );
 }

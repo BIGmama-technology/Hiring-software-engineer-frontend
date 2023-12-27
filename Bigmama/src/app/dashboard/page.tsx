@@ -1,6 +1,7 @@
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 import RoomsDisplay from "@/app/dashboard/rooms-display";
+import NavMenu from "@/components/NavMenu";
 
 export default async function Home() {
     const supabase = createServerComponentClient<any>({cookies})
@@ -10,5 +11,10 @@ export default async function Home() {
     } = await supabase.auth.getSession();
 
 
-    return <RoomsDisplay session={session} />
+    return (
+        <>
+            <NavMenu />
+            <RoomsDisplay session={session} />
+        </>
+    )
 }

@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import AccountForm from './account-form'
+import NavMenu from "@/components/NavMenu";
 
 export default async function Account() {
     const supabase = createServerComponentClient<any>({ cookies })
@@ -10,5 +11,10 @@ export default async function Account() {
     } = await supabase.auth.getSession()
 
 
-    return <AccountForm session={session} />
+    return (
+        <>
+            <NavMenu />
+            <AccountForm session={session} />
+        </>
+    )
 }
