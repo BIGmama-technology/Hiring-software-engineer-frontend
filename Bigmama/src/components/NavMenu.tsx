@@ -24,7 +24,7 @@ export default function NavMenu(){
 function NavBar(){
     return (
         <nav>
-            <ul className={"flex py-2 gap-x-8 items-center w-full justify-center"}>
+            <ul className={"flex py-2 gap-x-4 items-center w-full justify-center"}>
                 <li>
                     <Link href={"/account"}>
                         <div className="button block">Profile</div>

@@ -24,7 +24,7 @@ export default function ShareButton() {
     };
 
     return (
-        <div onClick={handleClick} className={"button block"}>
+        <div onClick={handleClick} className={"button block pl-4"}>
             {buttonText}
         </div>
     );
