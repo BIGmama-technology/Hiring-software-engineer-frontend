@@ -10,7 +10,6 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
     const [loading, setLoading] = useState(true)
     const [rooms, setRooms] = useState<string[]>([])
     const [title, setTitle] = useState<string>("")
-    const [showmodal, setShowmodal] = useState(false)
     const [joinroomId, setJoinroomId] = useState<string>("")
 
     const user = session?.user
@@ -168,54 +167,35 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 
     return (
         <div className="form-widget px-8 py-2">
-            <div className={"w-full flex justify-between"}>
-                <div className={"text-4xl font-bold"}>My documents</div>
-                <div className={"hidden md:block px-2 py-1 bg-white text-black rounded-lg text-xl cursor-pointer"} onClick={() => setShowmodal((prevState) => !prevState)}>Add new Document</div>
-                <div className={"md:hidden px-4 flex justify-center items-center bg-white text-black rounded-full cursor-pointer"} onClick={() => setShowmodal((prevState) => !prevState)}>Add</div>
-            </div>
-            <div className={"flex flex-wrap gap-4"}>
-                {rooms.length > 0 ? roomsElements : <div>You don't have any rooms</div>}
-            </div>
-
-            {showmodal && <div className={"w-fit"}>
-                <div className={"flex flex-col gap-y-2"}>
-                    <div>
-                        <label htmlFor="title">Room title</label>
-                        <input
-                            id="title"
-                            type="text"
-                            value={title || ''}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </div>
-                    <button
-                        className="button primary block"
-                        onClick={() => createRoom({ rooms, title })}
-                        disabled={loading}
-                    >
-                        {loading ? 'Loading ...' : 'Create Room'}
-                    </button>
+            <Drawer>
+                <div className={"w-full flex justify-between"}>
+                    <div className={"text-4xl font-bold"}>My documents</div>
+                    <DrawerTrigger>Add document</DrawerTrigger>
                 </div>
-
-                <div className={"flex flex-col gap-y-2"}>
-                    <div>
-                        <label htmlFor="roomid">Room Id</label>
-                        <input
-                            id="roomId"
-                            type="text"
-                            value={joinroomId || ''}
-                            onChange={(e) => setJoinroomId(e.target.value)}
-                        />
-                    </div>
-                    <button
-                        className="button primary block"
-                        onClick={() => joinRoom({ rooms, joinroomId })}
-                        disabled={loading}
-                    >
-                        {loading ? 'Loading ...' : 'Join Room'}
-                    </button>
+                <div className={"flex flex-wrap gap-4"}>
+                    {rooms.length > 0 ? roomsElements : <div>You don't have any rooms</div>}
                 </div>
-            </div>}
+                <DrawerContent className={"bg-black"}>
+                    <DrawerHeader>
+                        <DrawerTitle>Create or join a room</DrawerTitle>
+                        <DrawerDescription>If joining a room request the Id from someone that already has access to it</DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                        <div className={"flex flex-col gap-y-8 justify-between w-full"}>
+                            <div className={"flex flex-col items-center gap-y-3"}>
+                                <label htmlFor="title">Room title</label>
+                                <Input id={"title"} value={title || ''}  onChange={(e) => setTitle(e.target.value)}/>
+                                <Button disabled={loading} onClick={() => createRoom({ rooms, title })} type="submit">{loading ? 'Loading ...' : 'Create'}</Button>
+                            </div>
+                            <div className={"flex flex-col items-center gap-y-3"}>
+                                <label htmlFor="roomid">Room Id</label>
+                                <Input value={joinroomId || ''} onChange={(e) => setJoinroomId(e.target.value)} id={"roomId"}/>
+                                <Button onClick={() => joinRoom({ rooms, joinroomId })} disabled={loading}>{loading ? 'Loading ...' : 'Join'}</Button>
+                            </div>
+                        </div>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
         </div>
     )
 }
@@ -224,4 +204,13 @@ import React from "react";
 import {useRouter} from "next/navigation";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/shadcnuiComponents/ui/card";
 import {Button} from "@/primitives/Button";
+import {
+    Drawer,
+    DrawerContent, DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger
+} from "@/shadcnuiComponents/ui/drawer";
+import {Input} from "@/primitives/Input";
 
