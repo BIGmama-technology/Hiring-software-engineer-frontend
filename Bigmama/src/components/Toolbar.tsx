@@ -9,6 +9,7 @@ import { ToolbarMedia } from "./ToolbarMedia";
 import styles from "./Toolbar.module.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import NavMenu from "@/components/NavMenu";
+import ShareButton from "@/components/ShareButton";
 
 type Props = {
   editor: Editor;
@@ -43,6 +44,9 @@ export function Toolbar({ editor }: Props) {
       </div>
         <div>
             <NavMenu />
+        </div>
+        <div>
+            <ShareButton />
         </div>
     </div>
   );
