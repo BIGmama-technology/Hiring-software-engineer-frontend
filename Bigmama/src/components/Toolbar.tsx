@@ -7,8 +7,9 @@ import { ToolbarHeadings } from "./ToolbarHeadings";
 import { ToolbarInline } from "./ToolbarInline";
 import { ToolbarMedia } from "./ToolbarMedia";
 import styles from "./Toolbar.module.css";
-import NavMenu from "@/components/NavMenu";
 import ShareButton from "@/components/ShareButton";
+import Link from "next/link";
+import {Button} from "@/primitives/Button";
 
 type Props = {
   editor: Editor;
@@ -18,6 +19,7 @@ export function Toolbar({ editor }: Props) {
     document.documentElement.setAttribute("data-theme", "dark");
   return (
     <div className={styles.toolbar}>
+
       <div className={styles.toolbarSection}>
         <ToolbarCommands editor={editor} />
       </div>
@@ -40,7 +42,14 @@ export function Toolbar({ editor }: Props) {
         <ToolbarMedia editor={editor} />
       </div>
       <div>
-        <NavMenu />
+        <Link href={"/account"}>
+            <Button variant={"secondary"}>Profile</Button>
+        </Link>
+      </div>
+      <div>
+        <Link href={"/dashboard"}>
+            <Button variant={"secondary"}>Dashboard</Button>
+        </Link>
       </div>
       <div>
         <ShareButton />

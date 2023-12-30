@@ -2,6 +2,7 @@
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import {useEffect, useState} from "react";
+import {Button} from "@/primitives/Button";
 
 export default function NavMenu(){
     const supabase = createClientComponentClient();
@@ -23,19 +24,17 @@ export default function NavMenu(){
 
 function NavBar(){
     return (
-        <nav>
-            <ul className={"flex py-2 gap-x-4 items-center w-full justify-center"}>
-                <li>
-                    <Link href={"/account"}>
-                        <div className="button block">Profile</div>
-                    </Link>
-                </li>
-                <li>
-                    <Link href={"/dashboard"}>
-                        <div className="button block">Dashboard</div>
-                    </Link>
-                </li>
-            </ul>
-        </nav>
+        <div className={"flex py-2 gap-x-4 items-center w-full justify-center"}>
+            <div>
+                <Link href={"/account"}>
+                    <Button variant={"subtle"}>Profile</Button>
+                </Link>
+            </div>
+            <div>
+                <Link href={"/dashboard"}>
+                    <Button variant={"subtle"}>Dashboard</Button>
+                </Link>
+            </div>
+        </div>
     )
 }

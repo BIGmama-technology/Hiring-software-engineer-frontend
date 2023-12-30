@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import {Button} from "@/primitives/Button";
 
 export default function ShareButton() {
     const searchParams = useSearchParams();
@@ -24,8 +25,8 @@ export default function ShareButton() {
     };
 
     return (
-        <div onClick={handleClick} className={"button block pl-4"}>
+        <Button variant={"secondary"} onClick={handleClick} className={"pl-4"}>
             {buttonText}
-        </div>
+        </Button>
     );
 }

@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, ReactNode } from 'react'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import "@/app/global.css"
 import Link from "next/link";
@@ -111,18 +111,60 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
         }
     }
 
-    const roomsElements = rooms.map((room) => {
-        let parts = room.split('/');
+    async function deleteRoom({
+                                  rooms,
+                                  deleteRoomId,
+                              }: {
+        rooms: string[];
+        deleteRoomId: string;
+    }) {
+        try {
+            setLoading(true);
 
-        let title = parts[0];
-        let id = parts[1];
-        return (
-            <div className={"border-2 border-gray-500 bg-white rounded-2xl w-fit px-4 py-2 flex flex-col justify-between h-fit gap-y-2"}>
-                <h1 className={"text-black text-2xl font-semibold"}>{title}</h1>
-                <p className={"text-gray-600"}>id: {id?.length > 0 ? id : "none"}</p>
-                <Link href={`/room/?room=${room}`}><div className={"bg-black px-2 py-1 rounded-full w-fit"}>View Room</div></Link>
-            </div>)
-    })
+            // Filter out the room to be deleted
+            const newRooms = rooms.filter(room => room !== deleteRoomId);
+
+            const { error } = await supabase.from('profiles')
+                .update({ rooms: newRooms })
+                .eq('id', user?.id);
+
+            if (error) throw error;
+            alert('Profile updated!');
+        } catch (error) {
+            alert('Error updating the data!');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const [roomsElements, setRoomsElements] = useState<ReactNode[]>([]);
+
+    useEffect(() => {
+        const newRoomsElements = rooms.map((room) => {
+            let parts = room.split('/');
+
+            let title = parts[0];
+            let id = parts[1];
+
+            return (
+                <Card className={"bg-black"}>
+                    <CardHeader className={"items-center"}>
+                        <CardTitle>{title}</CardTitle>
+                        <CardDescription className={"text-gray-300"}>id: {id?.length > 0 ? id : "none"}</CardDescription>
+                    </CardHeader>
+                    <CardFooter className="flex justify-between gap-x-8">
+                        <Button variant="destructive" onClick={() => deleteRoom({ rooms: rooms, deleteRoomId: room })}>Delete</Button>
+                        <Link href={`/room/?room=${room}`}><Button variant={"primary"}>View Room</Button></Link>
+                    </CardFooter>
+                </Card>
+
+            )
+        })
+
+        setRoomsElements(newRoomsElements);
+
+    }, [rooms]);
+
 
     return (
         <div className="form-widget px-8 py-2">
@@ -180,4 +222,6 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
 
 import React from "react";
 import {useRouter} from "next/navigation";
+import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/shadcnuiComponents/ui/card";
+import {Button} from "@/primitives/Button";
 
