@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import "@/app/global.css"
 import Avatar from "@/app/account/Avatar";
@@ -85,8 +85,9 @@ export default function AccountForm({ session }: { session: Session | null }) {
     }
 
     return (
-        <div className="form-widget px-8 py-2">
-            <div className={"w-full flex md:flex-row flex-col gap-x-3"}>
+        <div className="px-8 py-2">
+            <div className={"text-4xl font-bold"}>My profile</div>
+            <div className={"w-full flex flex-col gap-x-3"}>
                 <div>
                     <div>
                         <label htmlFor="email">Email</label>
@@ -120,7 +121,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
                         />
                     </div>
                 </div>
-                <div className={"w-full md:w-fit gap-x-8 flex md:flex-row flex-col items-center"}>
+                <div className={"w-full gap-x-8 flex md:flex-row flex-col items-center justify-center"}>
+
                     <div>
                         <label htmlFor="profileColor">Profile Picture</label>
                         <Avatar
@@ -138,25 +140,28 @@ export default function AccountForm({ session }: { session: Session | null }) {
                         <label htmlFor="profileColor">Profile Color</label>
                         <HexColorPicker color={profileColor} onChange={setProfileColor} />
                     </div>
+
+                    <div className={"flex gap-x-4 pb-16"}>
+                        <div>
+                            <button
+                                className="button primary block"
+                                onClick={() => updateProfile({ fullname, username, website, avatar_url })}
+                                disabled={loading}
+                            >
+                                {loading ? 'Loading ...' : 'Update'}
+                            </button>
+                        </div>
+
+                        <div>
+                            <form action="/api/auth/signout" method="post">
+                                <button className="button block" type="submit">
+                                    Sign out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-
-            <div>
-                <button
-                    className="button primary block"
-                    onClick={() => updateProfile({ fullname, username, website, avatar_url })}
-                    disabled={loading}
-                >
-                    {loading ? 'Loading ...' : 'Update'}
-                </button>
-            </div>
-
-            <div>
-                <form action="/api/auth/signout" method="post">
-                    <button className="button block" type="submit">
-                        Sign out
-                    </button>
-                </form>
             </div>
         </div>
     )
