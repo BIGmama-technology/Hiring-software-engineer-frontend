@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[Live Demo](https://document-colaboration-app-5j1j-ojfu2vmdr-louai-zokerburg.vercel.app/)
+[Live Demo](https://document-colaboration-app-5j1j.vercel.app/)
 
 ## **Overview**
 
@@ -14,7 +14,7 @@ Welcome to my Collaborative Realtime Document Editing App! This application prov
 
 ## **Features**
 
-- ✨ Astonishing  UI with light and dark theme using the beautiful Shadcn Ui component library
+- ✨ Astonishing UI with light and dark theme using the beautiful Shadcn Ui component library
 - 🔐 Robust Authentication system using Supabase auth and the Nextjs specifique nextjs-auth-helper package by Supabase.
 - 💪 Full CRUD operations using Supabase’s Postgres database system and RLS for secure data retrieval and mutation.
 - 👩‍💻 Realtime Collaboration: Edit documents simultaneously with others in real-time using the power of Liveblocks real time infrastructure
@@ -64,7 +64,7 @@ LIVEBLOCKS_SECRET_KEY=
 <aside>
 💡 How to get the values of the variables
 
-`NEXT_PUBLIC_SUPABASE_URL` and  `NEXT_PUBLIC_SUPABASE_ANON_KEY` you can get it from [Supabase dashboard](https://supabase.com/dashboard/) > Project  > Settings > API
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` you can get it from [Supabase dashboard](https://supabase.com/dashboard/) > Project > Settings > API
 
 `LIVEBLOCKS_SECRET_KEY` from [liveblocks dashboard](https://liveblocks.io/dashboard/) > project > API keys
 
@@ -77,78 +77,75 @@ npm install
 ```
 
 1. Setup the Supabase project and configure the database and RLS
-    1. Create a new Supabase project
-    2. Create new table called **`docs`**
-        
-        
-        | Column | foreign key | type | default value | primary |
-        | --- | --- | --- | --- | --- |
-        | doc_id |  | uuid | gen_random_uuid() | true |
-        | creator_name | public.user.id | uuid | not null |  |
-        | title |  | text | null |  |
-        | content |  | text | null |  |
-        | public |  | Boolean | true |  |
-        
-         go to SQL editor and create the Following RLS policies on the `docs` table
-        
-        ```sql
-        CREATE POLICY "Enable read only for public docs" ON "public"."docs"
-        AS PERMISSIVE FOR SELECT
-        TO public
-        USING (public = true)
-        ```
-        
-        ```sql
-        CREATE POLICY "Enable all actions based on creator id" ON "public"."docs"
-        AS PERMISSIVE FOR ALL
-        TO public
-        USING ((auth.uid() = creator_id))
-        WITH CHECK ((auth.uid() = creator_id))
-        ```
-        
-    3. Create new table called `users`
-        
-        
-        | Column | foreign key | type | default value | primary |
-        | --- | --- | --- | --- | --- |
-        | id |  | uuid | gen_random_uuid() | true |
-        | email |  | text | not null |  |
-        | name |  | text | not null |  |
-        
-         go to SQL editor and create the Following RLS policies on the `users` table
-        
-        ```sql
-        CREATE POLICY "Enable read access to all users" ON "public"."users"
-        AS PERMISSIVE FOR SELECT
-        TO public
-        USING (true)
-        ```
-        
-    4. Create new function on the `public` Schema called `insert_user_in_users_table_on_signup`
-        
-        ```
-        begin
-          insert into public.users(id, name, email)
-          values (
-            new.id,
-            new.raw_user_meta_data->>'name',
-            new.email
-          );
-        
-          return new;
-        end;
-        ```
-        
-    5. Create a new trigger on the `auth` schema from the SQL Editor ([you can’t manipulate `auth` schema from UI according to latest Supabase updates](https://www.reddit.com/r/Supabase/comments/16uiokd/why_cant_i_create_a_trigger_on_authusers_table/))
-        
-        ```sql
-        create trigger on_auth_user_inserted after insert on auth.users for each row execute function insert_user_in_users_table_on_signup();
-        ```
-        
+   1. Create a new Supabase project
+   2. Create new table called **`docs`**
+
+      | Column       | foreign key    | type    | default value     | primary |
+      | ------------ | -------------- | ------- | ----------------- | ------- |
+      | doc_id       |                | uuid    | gen_random_uuid() | true    |
+      | creator_name | public.user.id | uuid    | not null          |         |
+      | title        |                | text    | null              |         |
+      | content      |                | text    | null              |         |
+      | public       |                | Boolean | true              |         |
+
+      go to SQL editor and create the Following RLS policies on the `docs` table
+
+      ```sql
+      CREATE POLICY "Enable read only for public docs" ON "public"."docs"
+      AS PERMISSIVE FOR SELECT
+      TO public
+      USING (public = true)
+      ```
+
+      ```sql
+      CREATE POLICY "Enable all actions based on creator id" ON "public"."docs"
+      AS PERMISSIVE FOR ALL
+      TO public
+      USING ((auth.uid() = creator_id))
+      WITH CHECK ((auth.uid() = creator_id))
+      ```
+
+   3. Create new table called `users`
+
+      | Column | foreign key | type | default value     | primary |
+      | ------ | ----------- | ---- | ----------------- | ------- |
+      | id     |             | uuid | gen_random_uuid() | true    |
+      | email  |             | text | not null          |         |
+      | name   |             | text | not null          |         |
+
+      go to SQL editor and create the Following RLS policies on the `users` table
+
+      ```sql
+      CREATE POLICY "Enable read access to all users" ON "public"."users"
+      AS PERMISSIVE FOR SELECT
+      TO public
+      USING (true)
+      ```
+
+   4. Create new function on the `public` Schema called `insert_user_in_users_table_on_signup`
+
+      ```
+      begin
+        insert into public.users(id, name, email)
+        values (
+          new.id,
+          new.raw_user_meta_data->>'name',
+          new.email
+        );
+
+        return new;
+      end;
+      ```
+
+   5. Create a new trigger on the `auth` schema from the SQL Editor ([you can’t manipulate `auth` schema from UI according to latest Supabase updates](https://www.reddit.com/r/Supabase/comments/16uiokd/why_cant_i_create_a_trigger_on_authusers_table/))
+
+      ```sql
+      create trigger on_auth_user_inserted after insert on auth.users for each row execute function insert_user_in_users_table_on_signup();
+      ```
 2. Run the code locally in your machine
-    
-    ```bash
-    npm run dev
-    ```
-    
-    and access it on `http://localhost:3000/`
+
+   ```bash
+   npm run dev
+   ```
+
+   and access it on `http://localhost:3000/`
