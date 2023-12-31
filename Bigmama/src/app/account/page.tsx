@@ -12,9 +12,9 @@ export default async function Account() {
 
 
     return (
-        <>
+        <div className={"max-w-[100svw] min-h-[100svh] bg-black pb-16 overflow-hidden"}>
             <NavMenu />
             <AccountForm session={session} />
-        </>
+        </div>
     )
 }

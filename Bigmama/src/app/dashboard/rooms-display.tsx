@@ -19,6 +19,7 @@ import {
 import {Input} from "@/primitives/Input";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/shadcnuiComponents/ui/tabs";
 import ShareIcon from "@/components/ShareIcon";
+import {toast} from "sonner";
 
 export default function RoomsDisplay({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -55,7 +56,7 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                 }
             }
         } catch (error) {
-            alert('Error loading user data!')
+            toast('Error loading user data!')
         } finally {
             setLoading(false)
         }
@@ -90,9 +91,9 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                 .eq('id', user?.id);
 
             if (error) throw error
-            alert('Profile updated!')
+            toast('Profile updated!')
         } catch (error) {
-            alert('Error updating the data!')
+            toast('Error updating the data!')
         } finally {
             setLoading(false)
         }
@@ -117,9 +118,9 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                 .eq('id', user?.id);
 
             if (error) throw error
-            alert('Profile updated!')
+            toast('Profile updated!')
         } catch (error) {
-            alert('Error updating the data!')
+            toast('Error updating the data!')
         } finally {
             setLoading(false)
         }
@@ -143,9 +144,9 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                 .eq('id', user?.id);
 
             if (error) throw error;
-            alert('Profile updated!');
+            toast('Profile updated!');
         } catch (error) {
-            alert('Error updating the data!');
+            toast('Error updating the data!');
         } finally {
             setLoading(false);
         }

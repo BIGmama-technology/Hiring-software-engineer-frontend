@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
+import {toast} from "sonner";
 
 export default function Avatar({
                                    uid,
@@ -56,7 +57,7 @@ export default function Avatar({
 
             onUpload(filePath)
         } catch (error) {
-            alert('Error uploading avatar!')
+            toast('Error uploading avatar!')
         } finally {
             setUploading(false)
         }

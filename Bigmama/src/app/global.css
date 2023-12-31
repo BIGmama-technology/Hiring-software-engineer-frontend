@@ -88,9 +88,9 @@ body {
 html,
 body,
 #__next {
-    height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
 }
 
 /* Grid */

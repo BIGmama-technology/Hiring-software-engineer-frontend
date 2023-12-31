@@ -5,6 +5,10 @@ import "@/app/global.css"
 import Avatar from "@/app/account/Avatar";
 import {HexColorPicker} from "react-colorful";
 import { useRouter } from "next/navigation";
+import {Input} from "@/primitives/Input";
+import {Label} from "@/shadcnuiComponents/ui/label";
+import {Toaster} from "@/shadcnuiComponents/ui/sonner";
+import {toast} from "sonner";
 
 export default function AccountForm({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -41,9 +45,10 @@ export default function AccountForm({ session }: { session: Session | null }) {
                 setUsername(data.username)
                 setWebsite(data.website)
                 setAvatarUrl(data.avatar_url)
+                setLoading(false)
             }
         } catch (error) {
-            alert('Error loading user data!')
+            toast('Error loading user data!')
         } finally {
             setLoading(false)
         }
@@ -76,55 +81,40 @@ export default function AccountForm({ session }: { session: Session | null }) {
                 updated_at: new Date().toISOString(),
             })
             if (error) throw error
-            alert('Profile updated!')
+            toast('Profile updated!')
         } catch (error) {
-            alert('Error updating the data!')
+            toast('Error updating the data!')
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <div className="px-8 py-2">
+        <div className={"px-4 gap-y-3 flex flex-col"}>
+            <Toaster />
             <div className={"text-4xl font-bold"}>My profile</div>
-            <div className={"w-full flex flex-col gap-x-3"}>
-                <div>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <input id="email" type="text" value={session?.user.email} disabled />
+            <div className={"flex flex-col md:flex-row justify-between"}>
+                <div className={"w-3/4 md:w-1/2"}>
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="email">Email</Label>
+                        <Input disabled type="email" id="email" placeholder="Email" value={session?.user.email}/>
                     </div>
-                    <div>
-                        <label htmlFor="fullName">Full Name</label>
-                        <input
-                            id="fullName"
-                            type="text"
-                            value={fullname || ''}
-                            onChange={(e) => setFullname(e.target.value)}
-                        />
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="name">Full Name</Label>
+                        <Input type="text" id="fullName" placeholder="Mosbahi Walid" value={fullname || ''} onChange={(e) => setFullname(e.target.value)}/>
                     </div>
-                    <div>
-                        <label htmlFor="username">Username</label>
-                        <input
-                            id="username"
-                            type="text"
-                            value={username || ''}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="username">Username</Label>
+                        <Input type="text" id="username" placeholder="Bretis2019" value={username || ''} onChange={(e) => setUsername(e.target.value)}/>
                     </div>
-                    <div>
-                        <label htmlFor="website">Website</label>
-                        <input
-                            id="website"
-                            type="url"
-                            value={website || ''}
-                            onChange={(e) => setWebsite(e.target.value)}
-                        />
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="website">Website</Label>
+                        <Input type="url" id="website" placeholder="walidmosbahi.me" value={website || ''} onChange={(e) => setWebsite(e.target.value)}/>
                     </div>
                 </div>
-                <div className={"w-full gap-x-8 flex md:flex-row flex-col items-center justify-center"}>
-
-                    <div>
-                        <label htmlFor="profileColor">Profile Picture</label>
+                <div className={"flex flex-col md:flex-row justify-between w-3/4 md:w-1/2"}>
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="avatar">Profile picture</Label>
                         <Avatar
                             uid={user?.id || ''}
                             url={avatar_url}
@@ -135,32 +125,29 @@ export default function AccountForm({ session }: { session: Session | null }) {
                             }}
                         />
                     </div>
-
-                    <div>
-                        <label htmlFor="profileColor">Profile Color</label>
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="color">Profile Color</Label>
                         <HexColorPicker color={profileColor} onChange={setProfileColor} />
                     </div>
+                </div>
+            </div>
+            <div className={"flex gap-x-4 pb-16"}>
+                <div>
+                    <button
+                        className="button primary block"
+                        onClick={() => updateProfile({ fullname, username, website, avatar_url })}
+                        disabled={loading}
+                    >
+                        Update
+                    </button>
+                </div>
 
-                    <div className={"flex gap-x-4 pb-16"}>
-                        <div>
-                            <button
-                                className="button primary block"
-                                onClick={() => updateProfile({ fullname, username, website, avatar_url })}
-                                disabled={loading}
-                            >
-                                {loading ? 'Loading ...' : 'Update'}
-                            </button>
-                        </div>
-
-                        <div>
-                            <form action="/api/auth/signout" method="post">
-                                <button className="button block" type="submit">
-                                    Sign out
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
+                <div>
+                    <form action="/api/auth/signout" method="post">
+                        <button className="button block" type="submit">
+                            Sign out
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
