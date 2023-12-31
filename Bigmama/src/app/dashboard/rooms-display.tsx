@@ -18,6 +18,7 @@ import {
 } from "@/shadcnuiComponents/ui/drawer";
 import {Input} from "@/primitives/Input";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/shadcnuiComponents/ui/tabs";
+import ShareIcon from "@/components/ShareIcon";
 
 export default function RoomsDisplay({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -162,7 +163,10 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
             return (
                 <Card className={"bg-black"}>
                     <CardHeader className={"items-center"}>
-                        <CardTitle>{title}</CardTitle>
+                        <div className={"flex w-full justify-between gap-x-2 items-center"}>
+                            <CardTitle>{title}</CardTitle>
+                            <ShareIcon textToCopy={room} />
+                        </div>
                         <CardDescription className={"text-gray-300"}>id: {id?.length > 0 ? id : "none"}</CardDescription>
                     </CardHeader>
                     <CardFooter className="flex justify-between gap-x-8">
