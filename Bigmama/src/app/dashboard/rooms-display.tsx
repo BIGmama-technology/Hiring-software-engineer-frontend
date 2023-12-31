@@ -4,6 +4,20 @@ import { Session, createClientComponentClient } from '@supabase/auth-helpers-nex
 import "@/app/global.css"
 import Link from "next/link";
 import { nanoid } from 'nanoid'
+import React from "react";
+import {useRouter} from "next/navigation";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/shadcnuiComponents/ui/card";
+import {Button} from "@/primitives/Button";
+import {
+    Drawer,
+    DrawerContent, DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger
+} from "@/shadcnuiComponents/ui/drawer";
+import {Input} from "@/primitives/Input";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/shadcnuiComponents/ui/tabs";
 
 export default function RoomsDisplay({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -170,7 +184,8 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
             <Drawer>
                 <div className={"w-full flex justify-between"}>
                     <div className={"text-4xl font-bold"}>My documents</div>
-                    <DrawerTrigger>Add document</DrawerTrigger>
+                    <DrawerTrigger className={"hidden md:block"}>Add document</DrawerTrigger>
+                    <DrawerTrigger className={"md:hidden"}>Add</DrawerTrigger>
                 </div>
                 <div className={"flex flex-wrap gap-4"}>
                     {rooms.length > 0 ? roomsElements : <div>You don't have any rooms</div>}
@@ -181,36 +196,51 @@ export default function RoomsDisplay({ session }: { session: Session | null }) {
                         <DrawerDescription>If joining a room request the Id from someone that already has access to it</DrawerDescription>
                     </DrawerHeader>
                     <DrawerFooter>
-                        <div className={"flex flex-col gap-y-8 justify-between w-full"}>
-                            <div className={"flex flex-col items-center gap-y-3"}>
-                                <label htmlFor="title">Room title</label>
-                                <Input id={"title"} value={title || ''}  onChange={(e) => setTitle(e.target.value)}/>
-                                <Button disabled={loading} onClick={() => createRoom({ rooms, title })} type="submit">{loading ? 'Loading ...' : 'Create'}</Button>
-                            </div>
-                            <div className={"flex flex-col items-center gap-y-3"}>
-                                <label htmlFor="roomid">Room Id</label>
-                                <Input value={joinroomId || ''} onChange={(e) => setJoinroomId(e.target.value)} id={"roomId"}/>
-                                <Button onClick={() => joinRoom({ rooms, joinroomId })} disabled={loading}>{loading ? 'Loading ...' : 'Join'}</Button>
-                            </div>
-                        </div>
+                        <Tabs defaultValue="create" className="w-[90svw] max-w-[400px] bg-black">
+                            <TabsList className="grid w-full grid-cols-2 bg-black">
+                                <TabsTrigger value="create">Create</TabsTrigger>
+                                <TabsTrigger value="join">Join</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="create">
+                                <Card className={"bg-black"}>
+                                    <CardHeader>
+                                        <CardTitle>Create</CardTitle>
+                                        <CardDescription>
+                                            Create a room.
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="space-y-2">
+                                        <div className="space-y-1">
+                                            <label htmlFor="title">Room title</label>
+                                            <Input id={"title"} value={title || ''}  onChange={(e) => setTitle(e.target.value)}/>
+                                        </div>
+                                    </CardContent>
+                                    <CardFooter>
+                                        <Button disabled={loading} onClick={() => createRoom({ rooms, title })} type="submit">{loading ? 'Loading ...' : 'Create'}</Button>
+                                    </CardFooter>
+                                </Card>
+                            </TabsContent>
+                            <TabsContent value="join">
+                                <Card className={"bg-black"}>
+                                    <CardHeader>
+                                        <CardTitle>Join</CardTitle>
+                                        <CardDescription>
+                                            Join a room with it's id.
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="space-y-2">
+                                        <label htmlFor="roomid">Room Id</label>
+                                        <Input value={joinroomId || ''} onChange={(e) => setJoinroomId(e.target.value)} id={"roomId"}/>
+                                    </CardContent>
+                                    <CardFooter>
+                                        <Button onClick={() => joinRoom({ rooms, joinroomId })} disabled={loading}>{loading ? 'Loading ...' : 'Join'}</Button>
+                                    </CardFooter>
+                                </Card>
+                            </TabsContent>
+                        </Tabs>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </div>
     )
 }
-
-import React from "react";
-import {useRouter} from "next/navigation";
-import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/shadcnuiComponents/ui/card";
-import {Button} from "@/primitives/Button";
-import {
-    Drawer,
-    DrawerContent, DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger
-} from "@/shadcnuiComponents/ui/drawer";
-import {Input} from "@/primitives/Input";
-
