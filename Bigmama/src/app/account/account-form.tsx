@@ -10,6 +10,7 @@ import {Label} from "@/shadcnuiComponents/ui/label";
 import {Toaster} from "@/shadcnuiComponents/ui/sonner";
 import {toast} from "sonner";
 import {Button} from "@/primitives/Button";
+import {Separator} from "@/shadcnuiComponents/ui/separator";
 
 export default function AccountForm({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -113,6 +114,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
                         <Input type="url" id="website" placeholder="walidmosbahi.me" value={website || ''} onChange={(e) => setWebsite(e.target.value)}/>
                     </div>
                 </div>
+                <Separator className={"md:hidden my-4"}/>
                 <div className={"flex flex-col md:flex-row justify-between w-3/4 md:w-1/2"}>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <Label className={"text-gray-300"} htmlFor="avatar">Profile picture</Label>
