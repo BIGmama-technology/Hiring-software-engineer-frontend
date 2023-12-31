@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
 import {toast} from "sonner";
+import {Button} from "@/primitives/Button";
 
 export default function Avatar({
                                    uid,
@@ -77,10 +78,10 @@ export default function Avatar({
             ) : (
                 <div className="avatar no-image" style={{ height: size, width: size }} />
             )}
-            <div style={{ width: size }}>
-                <label className="button primary block" htmlFor="single">
+            <div style={{ width: size }} className={"pt-2"}>
+                <Button style={{ width: size }} className={"flex justify-center"}>
                     {uploading ? 'Uploading ...' : 'Upload'}
-                </label>
+                </Button>
                 <input
                     style={{
                         visibility: 'hidden',

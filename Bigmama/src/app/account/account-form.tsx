@@ -9,6 +9,7 @@ import {Input} from "@/primitives/Input";
 import {Label} from "@/shadcnuiComponents/ui/label";
 import {Toaster} from "@/shadcnuiComponents/ui/sonner";
 import {toast} from "sonner";
+import {Button} from "@/primitives/Button";
 
 export default function AccountForm({ session }: { session: Session | null }) {
     const supabase = createClientComponentClient<any>()
@@ -96,25 +97,25 @@ export default function AccountForm({ session }: { session: Session | null }) {
             <div className={"flex flex-col md:flex-row justify-between"}>
                 <div className={"w-3/4 md:w-1/2"}>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="email">Email</Label>
+                        <Label className={"text-gray-300"} htmlFor="email">Email</Label>
                         <Input disabled type="email" id="email" placeholder="Email" value={session?.user.email}/>
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="name">Full Name</Label>
+                        <Label className={"text-gray-300"} htmlFor="name">Full Name</Label>
                         <Input type="text" id="fullName" placeholder="Mosbahi Walid" value={fullname || ''} onChange={(e) => setFullname(e.target.value)}/>
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="username">Username</Label>
+                        <Label className={"text-gray-300"} htmlFor="username">Username</Label>
                         <Input type="text" id="username" placeholder="Bretis2019" value={username || ''} onChange={(e) => setUsername(e.target.value)}/>
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="website">Website</Label>
+                        <Label className={"text-gray-300"} htmlFor="website">Website</Label>
                         <Input type="url" id="website" placeholder="walidmosbahi.me" value={website || ''} onChange={(e) => setWebsite(e.target.value)}/>
                     </div>
                 </div>
                 <div className={"flex flex-col md:flex-row justify-between w-3/4 md:w-1/2"}>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="avatar">Profile picture</Label>
+                        <Label className={"text-gray-300"} htmlFor="avatar">Profile picture</Label>
                         <Avatar
                             uid={user?.id || ''}
                             url={avatar_url}
@@ -126,28 +127,28 @@ export default function AccountForm({ session }: { session: Session | null }) {
                         />
                     </div>
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="color">Profile Color</Label>
+                        <Label className={"text-gray-300"} htmlFor="color">Profile Color</Label>
                         <HexColorPicker color={profileColor} onChange={setProfileColor} />
                     </div>
                 </div>
             </div>
             <div className={"flex gap-x-4 pb-16"}>
                 <div>
-                    <button
-                        className="button primary block"
+                    <form action="/api/auth/signout" method="post">
+                        <Button variant={"destructive"} type="submit">
+                            Sign out
+                        </Button>
+                    </form>
+                </div>
+
+                <div>
+                    <Button
+                        variant={"primary"}
                         onClick={() => updateProfile({ fullname, username, website, avatar_url })}
                         disabled={loading}
                     >
                         Update
-                    </button>
-                </div>
-
-                <div>
-                    <form action="/api/auth/signout" method="post">
-                        <button className="button block" type="submit">
-                            Sign out
-                        </button>
-                    </form>
+                    </Button>
                 </div>
             </div>
         </div>
