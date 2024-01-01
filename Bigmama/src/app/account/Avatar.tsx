@@ -78,10 +78,10 @@ export default function Avatar({
             ) : (
                 <div className="avatar no-image" style={{ height: size, width: size }} />
             )}
-            <div style={{ width: size }} className={"pt-2"}>
-                <Button style={{ width: size }} className={"flex justify-center"}>
+            <div style={{ width: size }}>
+                <label className="button primary block" htmlFor="single">
                     {uploading ? 'Uploading ...' : 'Upload'}
-                </Button>
+                </label>
                 <input
                     style={{
                         visibility: 'hidden',
