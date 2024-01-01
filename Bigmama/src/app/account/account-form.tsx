@@ -93,7 +93,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
 
     return (
         <div className={"px-4 gap-y-3 flex flex-col"}>
-            <Toaster />
+            <Toaster className={"text-black"}/>
             <div className={"text-4xl font-bold"}>My profile</div>
             <div className={"flex flex-col md:flex-row justify-between"}>
                 <div className={"w-3/4 md:w-1/2"}>
