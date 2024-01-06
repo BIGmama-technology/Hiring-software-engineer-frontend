@@ -1,14 +1,19 @@
-import { LiveCursorTracking, Room } from "@/app/Room";
-import { CollaborativeEditor } from "@/components/CollaborativeEditor";
+import AuthForm from "./auth-form";
 
 export default function Home() {
   return (
-    <main>
-      <Room>
-        {/* TODO: For now this is not working, I don't kn how to integrate the cursor behavior into the text editor */}
-        {/* <LiveCursorTracking /> */}
-        <CollaborativeEditor />
-      </Room>
-    </main>
+    <div className="row">
+      <div className="col-6">
+        <h1 className="header">Supabase Auth + Storage</h1>
+        <p className="">
+          Experience our Auth and Storage through a simple profile management
+          example. Create a user profile and upload an avatar image. Fast,
+          simple, secure.
+        </p>
+      </div>
+      <div className="col-6 auth-widget">
+        <AuthForm />
+      </div>
+    </div>
   );
 }

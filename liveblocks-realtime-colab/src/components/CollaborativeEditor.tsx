@@ -42,7 +42,7 @@ export function CollaborativeEditor() {
 
   return (
     <>
-      <LiveCursorTracking />
+      {/* <LiveCursorTracking /> */}
       <QuillEditor yText={text} provider={provider} />
     </>
   );

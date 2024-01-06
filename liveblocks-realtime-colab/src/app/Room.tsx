@@ -26,7 +26,7 @@ export function Room({ children }: { children: ReactNode }) {
 
 export function LiveCursorTracking() {
   const cursorPanel = useRef(null);
-  
+
   return (
     <main ref={cursorPanel}>
       <LiveCursors cursorPanel={cursorPanel} />
