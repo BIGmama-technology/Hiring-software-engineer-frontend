@@ -1,105 +1,36 @@
-# Frontend Engineer Project: Real-Time Document Collaboration Platform
+# Next.js App with Liveblocks
 
-Embark on the development journey to create a cutting-edge Real-Time Document Collaboration Platform. This project is tailored for frontend engineers seeking to enhance their skills in real-time collaboration, leveraging Liveblocks, Next.js, and Supabase. The objective is to build a platform where users can collaboratively edit documents seamlessly, incorporating user-friendly UI/UX practices and ensuring mobile-friendly accessibility.
+## Overview
 
-Develop a robust platform allowing users to collaboratively edit documents in real-time. Utilize Liveblocks for live updates, Next.js for the frontend, and Supabase for user authentication and document storage.
+This Next.js web application combines collaborative real-time editing features powered by Liveblocks with user authentication provided by Supabase. The app includes a login and register page for user authentication and a collaborative text editor with cursor tracking for real-time editing.
 
-## How does this work ?
+## Features
 
-Below is a list of tasks that candidates concurently work on. If you deem your contribution to be complete, you can create a pull request.
-The team will review your contribution and provide feedback. If its good your branch will be merged with the `main` branch.
-Tasks that are done will be ommited and new tasks will apear for others.
-Candidates with merged changes will be invited to pass an interview with the team.
+- **User Authentication**: The app features a user authentication system powered by Supabase, allowing users to register and log in securely.
 
-## Who can apply ?
+- **Collaborative Text Editor**: Utilizing Liveblocks, the app includes a collaborative text editor where multiple users can simultaneously edit a shared document in real-time. Cursor tracking ensures users can see the position of others within the document.
 
-Both students looking for an internship at BIGmama and professionals looking for a full-time position can apply.
+- **Cursor tracking**: Cursor tracking ensures users can see the position of others within the document.
+- **User Presence Indicators**: Shows the active users on document and on cursors (shows the email).
+- **Mobile-Friendly Interface**: simple, beautiful mobile interface.
 
-## Tasks
+## Pages
 
-- [ ] Shared Document Editing
+### Login Page and Register Page
 
-  - Implement Liveblocks to enable real-time collaboration for synchronized document editing.
-  - Develop collaborative cursor tracking for an enhanced collaborative experience.
+The login page allows existing users to log in to the application using their credentials or to create an account by providing necessary details such as email and password. It is integrated with Supabase for authentication.
+![Login and register page](public/login.png)
 
-- [ ] User Presence Indicators
+### Text Editor Page
 
-  - Incorporate real-time indicators to display the presence of other users currently editing the document.
+The text editor page is where users can collaborate on a shared document in real-time. Liveblocks powers the collaborative editing functionality, allowing users to see changes made by others instantly. Cursor tracking ensures users can see the position of collaborators within the document.
 
-- [ ] User Authentication and Ownership
+![Login page](public/home.png)
 
-  - Integrate Supabase for user authentication.
-  - Implement document ownership through Supabase for secure access and management.
+## Technologies Used
 
-- [ ] Mobile-Friendly Interface
+- **Next.js**: Next.js is used as the framework for building the React application, providing server-side rendering, routing, and other features.
 
-  - Ensure a responsive and intuitive UI for seamless document editing on various devices.
+- **Liveblocks**: Liveblocks is utilized for real-time collaborative editing, allowing multiple users to edit a shared document simultaneously.
 
-- [ ] UI/UX Best Practices
-  - Implement best practices in UI/UX design for an intuitive and visually pleasing editing experience.
-
-## Setup
-
-Clone the repository:
-
-```bash
-git clone git@github.com:BIGmama-technology/Hiring-software-engineer-frontend.git
-```
-
-## Contribution Guidelines
-
-#### Document Your Code:
-
-- Ensure comprehensive documentation of your code within the README.md file. Clearly explain the purpose and functionality of each component or module.
-
-#### Code Organization:
-
-- Adhere to best practices for frontend development, maintaining clean, modular, and well-organized code. Use appropriate folder structures to enhance code readability.
-
-#### Testing:
-
-- Implement thorough testing for collaborative features and user management to ensure the stability and reliability of the platform. Consider unit tests, integration tests, and end-to-end tests.
-
-#### Commit Regularly:
-
-- Commit your changes regularly with clear and descriptive commit messages. This helps in tracking the development progress and understanding the purpose of each commit.
-
-#### Collaboration:
-
-- Collaborate effectively with other team members. Participate in code reviews, provide constructive feedback, and work collectively to enhance the project's overall quality.
-
-## Resources
-
-- [Supabase playlist](https://www.youtube.com/watch?v=ydz7Dj5QHKY&list=PL4cUxeGkcC9hUb6sHthUEwG7r9VDPBMKO)
-- [Liveblocks Starter kit walkthrough](https://www.youtube.com/watch?v=Lf7HQ4Z_Ovc)
-- [Liveblocks Documentation](https://liveblocks.io/docs)
-- [Next.js Documentation](https://nextjs.org/docs) `ps: Version 13 and up of nextjs is preferred (using the new app router).`
-- [Supabase Documentation](https://supabase.com/docs)
-
-## FAQ
-
-#### How should I approach collaborative cursor tracking?
-
-Focus on creating a seamless collaborative experience by ensuring synchronized real-time editing with Liveblocks.
-
-#### What if I encounter issues with Liveblocks or Supabase integration?
-
-Open an issue, and the team will provide assistance promptly.
-
-#### Can I propose additional features for document collaboration?
-
-Absolutely! Feel free to enhance the project by proposing features that contribute to an enriched collaborative document editing experience.
-
-#### how many features should I work on ?
-
-doesn't matter, what important is the value of your contribution and it's quality, impress us !
-
-#### what if the task I am working on gets completed by someone else ?
-
-pick another task, and hurry up !
-
-#### what if I have a question ?
-
-Open an issue and we will answer it as soon as possible !
-
-btawfiq inchalah
+- **Supabase**: Supabase provides user authentication services for the application, handling user registration, login, and secure storage of user credentials.
