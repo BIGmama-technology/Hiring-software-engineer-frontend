@@ -3,9 +3,10 @@ import { Liveblocks } from "@liveblocks/node";
 import { createBrowserClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+const secret = process.env.NEXT_PUBLIC_LIVEBLOCKS_SECRET;
+
 const liveblocks = new Liveblocks({
-  secret:
-    "sk_dev_tDcBg0Sg0akb4fS1aMuRjO2daig24KqeE0tei3i-9sbVyHv1UFdtFnb6lQBUFmKY",
+  secret: secret as string,
 });
 
 export async function POST(request: Request) {
