@@ -7,7 +7,7 @@ import LiveblocksProvider from "@liveblocks/yjs";
 import { useRoom, useSelf } from "@/liveblocks.config";
 import { useEffect, useState } from "react";
 import { Toolbar } from "./Toolbar";
-import styles from "./CollaborativeEditor.module.css";
+import styles from "./ColaborativeEditor.module.css";
 import { Avatars } from "@/components/Avatars";
 
 // Collaborative text editor with simple rich text, live cursors, and live avatars

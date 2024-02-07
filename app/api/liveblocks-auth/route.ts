@@ -1,10 +1,7 @@
+import { createClient } from "@/utils/supabase/server";
 import { Liveblocks } from "@liveblocks/node";
 import { createBrowserClient } from "@supabase/ssr";
-
-const supaase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { cookies } from "next/headers";
 
 const liveblocks = new Liveblocks({
   secret:
@@ -12,17 +9,30 @@ const liveblocks = new Liveblocks({
 });
 
 export async function POST(request: Request) {
+  const cookieStore = cookies();
+  const supaase = createClient(cookieStore);
   // Get the current user from your database
-  //   const user = (await supaase.auth.getUser()).data.user;
+  const user = await supaase.auth.getSession();
+  console.log(user.data.session?.user);
 
   //   const userid = user?.id as string;
   //   const user = __getUserFromDB__(request);
   const userid = Math.floor(Math.random() * 10).toString();
 
   // Start an auth session inside your endpoint
-  const session = liveblocks.prepareSession(`user-${userid}`, {
-    userInfo: USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length],
-  });
+  const session = liveblocks.prepareSession(
+    `user-${user.data.session?.user.id}`,
+    {
+      // userInfo: USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length],
+      userInfo: {
+        name: user.data.session?.user.email,
+        avatar:
+          USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length].picture,
+        color:
+          USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length].color,
+      },
+    }
+  );
 
   // Implement your own security, and give the user access to the room
   const { room } = await request.json();
