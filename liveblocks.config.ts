@@ -13,6 +13,7 @@ const client = createClient({
 // `user.presence` property. Must be JSON-serializable.
 type Presence = {
   // cursor: { x: number, y: number } | null,
+  cursor: { x: number; y: number } | null;
   // ...
 };
 
@@ -32,7 +33,8 @@ type UserMeta = {
   id?: string; // Accessible through `user.id`
   info: {
     name: string;
-    color: string;
+    // color: string;
+    color: [string, string];
     picture: string;
   }; // Accessible through `user.info`
 };

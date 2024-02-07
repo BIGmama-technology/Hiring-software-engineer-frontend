@@ -55,13 +55,20 @@ function BlockNote({ doc, provider }: EditorProps) {
       // Information for this user:
       user: {
         name: userInfo.name,
-        color: userInfo.color,
+        color: userInfo.color[0],
       },
     },
   });
 
+  // useEffect(() => {
+  //   const container = document.getElementById("toBeDown");
+  //   if (container) {
+  //     container.style.zIndex = (1).toString();
+  //   }
+  // }, []);
+
   return (
-    <div className={styles.container}>
+    <div id="toBeDown" className={styles.container}>
       <div className={styles.editorHeader}>
         <Toolbar editor={editor} />
         <Avatars />

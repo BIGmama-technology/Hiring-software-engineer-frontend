@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   const supaase = createClient(cookieStore);
   // Get the current user from your database
   const user = await supaase.auth.getSession();
-  console.log(user.data.session?.user);
+  // console.log(user.data.session?.user);
 
   //   const userid = user?.id as string;
   //   const user = __getUserFromDB__(request);
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       // userInfo: USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length],
       userInfo: {
         name: user.data.session?.user.email,
-        avatar:
+        picture:
           USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length].picture,
         color:
           USER_INFO[Math.floor(Math.random() * 10) % USER_INFO.length].color,
@@ -48,42 +48,42 @@ export async function POST(request: Request) {
 const USER_INFO = [
   {
     name: "Charlie Layne",
-    color: "#D583F0",
+    color: ["#D583F0", "#D583F0"],
     picture: "https://liveblocks.io/avatars/avatar-1.png",
   },
   {
     name: "Mislav Abha",
-    color: "#F08385",
+    color: ["#F08385", "#F08385"],
     picture: "https://liveblocks.io/avatars/avatar-2.png",
   },
   {
     name: "Tatum Paolo",
-    color: "#F0D885",
+    color: ["#F0D885", "#F0D885"],
     picture: "https://liveblocks.io/avatars/avatar-3.png",
   },
   {
     name: "Anjali Wanda",
-    color: "#85EED6",
+    color: ["#85EED6", "#85EED6"],
     picture: "https://liveblocks.io/avatars/avatar-4.png",
   },
   {
     name: "Jody Hekla",
-    color: "#85BBF0",
+    color: ["#85BBF0", "#85BBF0"],
     picture: "https://liveblocks.io/avatars/avatar-5.png",
   },
   {
     name: "Emil Joyce",
-    color: "#8594F0",
+    color: ["#8594F0", "#8594F0"],
     picture: "https://liveblocks.io/avatars/avatar-6.png",
   },
   {
     name: "Jory Quispe",
-    color: "#85DBF0",
+    color: ["#85BBF0", "#85BBF0"],
     picture: "https://liveblocks.io/avatars/avatar-7.png",
   },
   {
     name: "Quinn Elton",
-    color: "#87EE85",
+    color: ["#87EE85", "#87EE85"],
     picture: "https://liveblocks.io/avatars/avatar-8.png",
   },
 ];
