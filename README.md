@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js App with Liveblocks
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This Next.js web application combines collaborative real-time editing features powered by Liveblocks with user authentication provided by Supabase. The app includes a login and register page for user authentication and a collaborative text editor with cursor tracking for real-time editing.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**: The app features a user authentication system powered by Supabase, allowing users to register and log in securely.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Collaborative Text Editor**: Utilizing Liveblocks, the app includes a collaborative text editor where multiple users can simultaneously edit a shared document in real-time. Cursor tracking ensures users can see the position of others within the document.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Cursor tracking**: Cursor tracking ensures users can see the position of others within the document.
+- **Mobile-Friendly Interface**: simple, beautiful mobile interface.
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+### Login Page and Register Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The login page allows existing users to log in to the application using their credentials or to create an account by providing necessary details such as email and password. It is integrated with Supabase for authentication.
+![Login and register page](public/login.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Text Editor Page
 
-## Deploy on Vercel
+The text editor page is where users can collaborate on a shared document in real-time. Liveblocks powers the collaborative editing functionality, allowing users to see changes made by others instantly. Cursor tracking ensures users can see the position of collaborators within the document. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Login page](public/home.png)
+
+## Technologies Used
+
+- **Next.js**: Next.js is used as the framework for building the React application, providing server-side rendering, routing, and other features.
+
+- **Liveblocks**: Liveblocks is utilized for real-time collaborative editing, allowing multiple users to edit a shared document simultaneously.
+
+- **Supabase**: Supabase provides user authentication services for the application, handling user registration, login, and secure storage of user credentials.
+
